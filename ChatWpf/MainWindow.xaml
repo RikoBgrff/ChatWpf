@@ -23,12 +23,6 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="8*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="5*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
                         <Canvas Grid.Column="1" Canvas.Top="60">
                             <Image Canvas.Top="60" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
                             <TextBlock Canvas.Top="55" Canvas.Left="70" Width="600" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>

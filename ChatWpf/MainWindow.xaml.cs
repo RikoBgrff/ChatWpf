@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace ChatWpf
 {
     /// <summary>
@@ -30,18 +29,41 @@ namespace ChatWpf
         {
             new User
             {
-                Name = "Bagirli Arif",
+                Name = "Bağırlı Arif",
                 Number="+994708397309",
                 ImagePath="bagirliarif.jpg",
-                LatestMessage = "i will be there for 5 min"
+                LatestMessage = "can can can"
             },
             new User
             {
-                Name = "Jafarov Zaur",
+                Name = "Zaur Step",
                 Number="+99412345687",
                 ImagePath="zaurstep.jpg",
-                LatestMessage = "i will be there for 5 min"
-            }
+                LatestMessage = "Gürcü Xəngəli"
+            },
+            new User
+            {
+                Name = "Ayxan Step",
+                Number="+99412345687",
+                ImagePath="ayxanstep.png",
+                LatestMessage = "Axşam vaxtın var?"
+            },
+            new User
+            {
+                Name = "Sənan Step",
+                Number="+99412345687",
+                ImagePath="senanstep.png",
+                LatestMessage = @"Özüm öyrənəcəm Phytonu,
+çox vaxtım gedir"
+            },
+            new User
+            {
+                Name = "Amin Step",
+                Number="+99412345687",
+                ImagePath="aminstep.png",
+                LatestMessage = "sen Abdülhamiti savundun"
+            },
+
 
         };
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
