@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" MaxHeight="600" MaxWidth="1000" WindowStartupLocation="CenterScreen">
+        Title="Chat App" Height="600" Width="1000" MaxHeight="600" MaxWidth="1000" WindowStartupLocation="CenterScreen" Icon="Chattingg.png">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,23 +15,18 @@
         </Grid.ColumnDefinitions>
         <Canvas Grid.Column="0" Background="#484F62">
             <Image x:Name="MessageBtn" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="messageIcon.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="160"></Image>
-            <Image x:Name="ContactBtn" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="contactsIco.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="230"></Image>
-            <Image x:Name="SettingsBtn" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="settingsIco.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="300"></Image>
+            <Image x:Name="ContactBtn" MouseLeftButtonDown="ContactBtn_MouseLeftButtonDown" Source="contactsIco.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="230"></Image>
+            <Image x:Name="SettingsBtn" MouseLeftButtonDown="SettingsBtn_MouseLeftButtonDown" Source="settingsIco.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="300"></Image>
         </Canvas>
-
-        <ListBox x:Name="ContactsListBox" Grid.Column="1" Background="#F3F6FB">
+        <ListBox x:Name="MessagesListBox" Grid.Column="1" Background="#F3F6FB" Visibility="Collapsed">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Canvas Grid.Column="1" Canvas.Top="60">
+                        <Canvas Grid.Column="1" Canvas.Top="60" >
                             <Image Canvas.Top="60" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
                             <TextBlock Canvas.Top="55" Canvas.Left="70" Width="600" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>
                             <TextBlock Canvas.Top="90" Width="600" Canvas.Left="70" FontSize="16" Foreground="#2ECC71" Text="{Binding LatestMessage}"></TextBlock>
-                            <!--<Button Grid.Column="0" 
-                               Margin="10" 
-                               Width="35"
-                               Height="20" 
-                               Content="Edit"></Button>-->
+                           
                         </Canvas>
                         <StackPanel Name="stackPanel2" Grid.Column="2">
                             
@@ -45,6 +40,29 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-        <Canvas Background="#F9FAFC" Grid.Column="2"></Canvas>
+        <ListBox x:Name="ContactsListBox" Grid.Column="1" Background="#F3F6FB" Visibility="Collapsed">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Canvas Grid.Column="1" Canvas.Top="60" >
+                            <Image Canvas.Top="60" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
+                            <TextBlock Canvas.Top="55" Canvas.Left="70" Width="600" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>
+                            <TextBlock Canvas.Top="90" Width="600" Canvas.Left="70" FontSize="16" Foreground="#2ECC71" Text="{Binding Number}"></TextBlock>
+
+                        </Canvas>
+                        <StackPanel Name="stackPanel2" Grid.Column="2">
+
+                            <Image Name="selectedImage" Grid.Column="0" Height="150" Width="150"></Image>
+
+                            <TextBlock x:Name="NameTb"></TextBlock>
+                            <TextBlock Name="LatestMessageTb"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
+        <StackPanel Background="#F9FAFC" Grid.Column="2"></StackPanel>
     </Grid>
 </Window> 

@@ -23,7 +23,6 @@ namespace ChatWpf
         public MainWindow()
         {
             InitializeComponent();
-            ContactsListBox.ItemsSource = Users;
         }
         public List<User> Users { get; set; } = new List<User>
         {
@@ -32,7 +31,7 @@ namespace ChatWpf
                 Name = "Bağırlı Arif",
                 Number="+994708397309",
                 ImagePath="bagirliarif.jpg",
-                LatestMessage = "can can can"
+                LatestMessage = "dərs təxirə salınıb?"
             },
             new User
             {
@@ -63,12 +62,24 @@ namespace ChatWpf
                 ImagePath="aminstep.png",
                 LatestMessage = "sen Abdülhamiti savundun"
             },
-
-
         };
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Yes");
+            ContactsListBox.Visibility = Visibility.Collapsed;
+            MessagesListBox.ItemsSource = Users;
+            MessagesListBox.Visibility = Visibility.Visible;
+        }
+
+        private void ContactBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ContactsListBox.ItemsSource = Users;
+            MessagesListBox.Visibility = Visibility.Collapsed;
+            ContactsListBox.Visibility = Visibility.Visible;
+        }
+
+        private void SettingsBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessagesListBox.Visibility = Visibility.Collapsed;
         }
     }
 }
