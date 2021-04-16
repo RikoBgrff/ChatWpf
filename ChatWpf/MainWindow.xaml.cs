@@ -20,59 +20,24 @@ namespace ChatWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<User> Users { get; set; } = new List<User> { };
         public MainWindow()
         {
             InitializeComponent();
+
         }
-        public List<User> Users { get; set; } = new List<User>
-        {
-            new User
-            {
-                Name = "Bağırlı Arif",
-                Number="+994708397309",
-                ImagePath="bagirliarif.jpg",
-                LatestMessage = "dərs təxirə salınıb?"
-            },
-            new User
-            {
-                Name = "Zaur Step",
-                Number="+99412345687",
-                ImagePath="zaurstep.jpg",
-                LatestMessage = "Gürcü Xəngəli"
-            },
-            new User
-            {
-                Name = "Ayxan Step",
-                Number="+99412345687",
-                ImagePath="ayxanstep.png",
-                LatestMessage = "Axşam vaxtın var?"
-            },
-            new User
-            {
-                Name = "Sənan Step",
-                Number="+99412345687",
-                ImagePath="senanstep.png",
-                LatestMessage = @"Özüm öyrənəcəm Phytonu,
-çox vaxtım gedir"
-            },
-            new User
-            {
-                Name = "Amin Step",
-                Number="+99412345687",
-                ImagePath="aminstep.png",
-                LatestMessage = "sen Abdülhamiti savundun"
-            },
-        };
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
+            MessagesListBox.ItemsSource = JsonHelper.JsonDeserialize("users.json");
             ContactsListBox.Visibility = Visibility.Collapsed;
-            MessagesListBox.ItemsSource = Users;
             MessagesListBox.Visibility = Visibility.Visible;
         }
 
         private void ContactBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ContactsListBox.ItemsSource = Users;
+            var list = JsonHelper.JsonDeserialize("users.json").OrderBy(x => x.Name).ToList();
+            ContactsListBox.ItemsSource = list;
             MessagesListBox.Visibility = Visibility.Collapsed;
             ContactsListBox.Visibility = Visibility.Visible;
         }
@@ -80,6 +45,49 @@ namespace ChatWpf
         private void SettingsBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MessagesListBox.Visibility = Visibility.Collapsed;
+        }
+        private void MessagesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            sendMessageTxtBx.Visibility = Visibility.Visible;
+            sendButton.Visibility = Visibility.Visible;
+            var user = MessagesListBox.SelectedItem as User;
+            latestMessage.Text = user.LatestMessage;
+            senderName.Text = user.Name;
+            senderImage.Source = new BitmapImage(new Uri(user.ImagePath, UriKind.RelativeOrAbsolute));
+        }
+
+
+        private void PowerOffBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void PowerOffBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var image = sender as Image;
+            image.Height += 20;
+        }
+
+        private void PowerOffBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var image = sender as Image;
+            image.Height = 50;
+        }
+
+        private void sendButton_Click(object sender, RoutedEventArgs e)
+        {
+            sentMessage.Text = sendMessageTxtBx.Text;
+        }
+
+        private void ContactsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            sendMessageTxtBx.Visibility = Visibility.Visible;
+            sendButton.Visibility = Visibility.Visible;
+            var user = ContactsListBox.SelectedItem as User;
+            latestMessage.Text = user.LatestMessage;
+            senderName.Text = user.Name;
+            senderImage.Source = new BitmapImage(new Uri(user.ImagePath, UriKind.RelativeOrAbsolute));
+
         }
     }
 }

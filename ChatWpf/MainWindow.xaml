@@ -5,33 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatWpf"
         mc:Ignorable="d"
-        Title="Chat App" Height="600" Width="1000" MaxHeight="600" MaxWidth="1000" WindowStartupLocation="CenterScreen" Icon="Chattingg.png">
-
+        Title="Chat App" Height="600" Width="1000" WindowStyle="None" AllowsTransparency="False" MaxHeight="600" MaxWidth="1000" WindowStartupLocation="CenterScreen"  Icon="Chattingg.png">
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
+            <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Black"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"></ColumnDefinition>
             <ColumnDefinition Width="100*"></ColumnDefinition>
             <ColumnDefinition Width="125*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Canvas Grid.Column="0" Background="#484F62">
-            <Image x:Name="MessageBtn" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="messageIcon.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="160"></Image>
-            <Image x:Name="ContactBtn" MouseLeftButtonDown="ContactBtn_MouseLeftButtonDown" Source="contactsIco.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="230"></Image>
-            <Image x:Name="SettingsBtn" MouseLeftButtonDown="SettingsBtn_MouseLeftButtonDown" Source="settingsIco.png" Height="50" Width="61" Canvas.Left="10" Canvas.Top="300"></Image>
-        </Canvas>
-        <ListBox x:Name="MessagesListBox" Grid.Column="1" Background="#F3F6FB" Visibility="Collapsed">
+
+        <StackPanel  Grid.Column="0" Background="#484F62">
+            <Canvas Grid.Column="0" Background="#484F62">
+                <Image x:Name="PowerOffBtn" MouseLeftButtonDown="PowerOffBtn_MouseLeftButtonDown" MouseEnter="PowerOffBtn_MouseEnter" MouseLeave="PowerOffBtn_MouseLeave" Source="shutdown2.png" Height="50" Width="60" Canvas.Left="10" Canvas.Top="20"></Image>
+                <Image x:Name="MessageBtn" MouseEnter="PowerOffBtn_MouseEnter" MouseLeave="PowerOffBtn_MouseLeave" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="messageIcon.png" Height="50" Width="60" Canvas.Left="10" Canvas.Top="160"></Image>
+                <Image x:Name="ContactBtn" MouseEnter="PowerOffBtn_MouseEnter" MouseLeave="PowerOffBtn_MouseLeave" MouseLeftButtonDown="ContactBtn_MouseLeftButtonDown" Source="contactsIco.png" Height="50" Width="60" Canvas.Left="10" Canvas.Top="230"></Image>
+                <Image x:Name="SettingsBtn" MouseEnter="PowerOffBtn_MouseEnter" MouseLeave="PowerOffBtn_MouseLeave" MouseLeftButtonDown="SettingsBtn_MouseLeftButtonDown" Source="settingsIco.png" Height="50" Width="60" Canvas.Left="10" Canvas.Top="300"></Image>
+            </Canvas>
+        </StackPanel>
+
+        <ListBox x:Name="MessagesListBox" Grid.Column="1" Background="#F3F6FB" Visibility="Collapsed" MouseDoubleClick="MessagesListBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Canvas Grid.Column="1" Canvas.Top="60" >
-                            <Image Canvas.Top="60" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
-                            <TextBlock Canvas.Top="55" Canvas.Left="70" Width="600" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>
-                            <TextBlock Canvas.Top="90" Width="600" Canvas.Left="70" FontSize="16" Foreground="#2ECC71" Text="{Binding LatestMessage}"></TextBlock>
-                           
+                    <Grid Height="100" Width="100">
+                        <Canvas Grid.Column="1" >
+                            <Image Canvas.Top="25" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
+                            <TextBlock Canvas.Top="25" Canvas.Left="70" Width="100" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>
+                            <TextBlock Canvas.Top="45" Width="100" Canvas.Left="70"  FontSize="16" Foreground="#2ECC71" Text="{Binding LatestMessage}"></TextBlock>
                         </Canvas>
-                        <StackPanel Name="stackPanel2" Grid.Column="2">
-                            
-                                <Image Name="selectedImage" Grid.Column="0" Height="150" Width="150"></Image>
-                            
+                        <StackPanel Name="stackPanel2" Grid.Column="2" Height="100" Width="100">
+                            <Image Name="selectedImage" Grid.Column="0" Height="150" Width="150"></Image>
                             <TextBlock x:Name="NameTb"></TextBlock>
                             <TextBlock Name="LatestMessageTb"></TextBlock>
                         </StackPanel>
@@ -40,14 +65,14 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-        <ListBox x:Name="ContactsListBox" Grid.Column="1" Background="#F3F6FB" Visibility="Collapsed">
+        <ListBox x:Name="ContactsListBox" Grid.Column="1" Background="#F3F6FB" Visibility="Collapsed" MouseDoubleClick="ContactsListBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Canvas Grid.Column="1" Canvas.Top="60" >
-                            <Image Canvas.Top="60" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
-                            <TextBlock Canvas.Top="55" Canvas.Left="70" Width="600" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>
-                            <TextBlock Canvas.Top="90" Width="600" Canvas.Left="70" FontSize="16" Foreground="#2ECC71" Text="{Binding Number}"></TextBlock>
+                    <Grid Height="100" Width="100">
+                        <Canvas Grid.Column="1" >
+                            <Image Canvas.Top="25" Grid.Column="0" Height="60" Width="60" Source="{Binding ImagePath}"></Image>
+                            <TextBlock Canvas.Top="25" Canvas.Left="70" Width="120" FontSize="16" Foreground="#2ECC71" Text="{Binding Name}"></TextBlock>
+                            <TextBlock Canvas.Top="45" Width="120" Canvas.Left="70" FontSize="16" Foreground="#2ECC71" Text="{Binding Number}"></TextBlock>
 
                         </Canvas>
                         <StackPanel Name="stackPanel2" Grid.Column="2">
@@ -62,7 +87,15 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-
-        <StackPanel Background="#F9FAFC" Grid.Column="2"></StackPanel>
+        <StackPanel Background="MediumAquamarine" Grid.Column="2">
+            <Canvas>
+                 <Image Name="senderImage" Canvas.Left="10" Canvas.Top="25" Grid.Column="2" Height="60" Width="60" ></Image>
+                <TextBlock TextWrapping="Wrap" Name="senderName" Canvas.Top="30" Canvas.Left="85" Width="240" Grid.Column="2" FontFamily="Raleway" FontSize="40" Foreground="White"></TextBlock>
+                <TextBox BorderBrush="#484F62" BorderThickness="1" Visibility="Collapsed" Name="sendMessageTxtBx" Background="White" Foreground="#484F62" FontSize="14" TextWrapping="Wrap" FontFamily="Raleway" Canvas.Top="472" Width="411" Height="70" Template="{StaticResource TextBoxBaseControlTemplate}" Canvas.Left="16"></TextBox>
+                <Button Click="sendButton_Click" Name="sendButton" Content="Send" FontSize="20" FontStyle="Italic" VerticalContentAlignment="Center" FontFamily="Raleway" Visibility="Collapsed" Style="{StaticResource RoundCorner}" BorderBrush="#484F62" Foreground="White" Grid.Column="2" Canvas.Top="472" Canvas.Right="5" Width="65" Height="70" Canvas.Left="432"></Button>
+                <TextBlock Name="latestMessage" TextWrapping="Wrap" FontSize="20" Canvas.Top="113" Width="100" Canvas.Left="22" Grid.Column="2"  Foreground="White" ></TextBlock>
+                <TextBlock Name="sentMessage" TextWrapping="Wrap" FontSize="20" Canvas.Top="159" Width="100" Canvas.Left="346" Grid.Column="2"  Foreground="White" ></TextBlock>
+            </Canvas>
+        </StackPanel>
     </Grid>
 </Window> 
